@@ -48,7 +48,7 @@ controller.hears(['hi','hello'], 'direct_message,direct_mention', function (bot,
 });
 
 controller.hears('help', 'direct_message,direct_mention', function (bot, message) {
-    bot.reply(message, 'Hi, <@personEmail:' + message.user + '>! ' + help_msg);s
+    bot.reply(message, 'Hi, <@personEmail:' + message.user + '>! ' + help_msg);
 });
 
 controller.on('user_space_join', function (bot, message) {
