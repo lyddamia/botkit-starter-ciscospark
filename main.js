@@ -181,10 +181,10 @@ controller.hears(['assign (.*)'], 'direct_message,direct_mention', function(bot,
 
         convo.ask('Who do you want to assign to task ~' + assigntask + '~?', function(response, convo) {
             
-            controller.storage.users.get(response.text, function(err, user) {
+            controller.storage.users.get(response.user, function(err, user) {
                 if (!user) {
                     user = {};
-                    user.id = response.text;
+                    user.id = response.user;
                     user.tasks = [];
                 }
     
@@ -195,7 +195,7 @@ controller.hears(['assign (.*)'], 'direct_message,direct_mention', function(bot,
                     if (err) {
                         convo.say(message, 'I experienced an error assigning task: ' + err);
                     } else {
-                        convo.say(message,'Got it, <@personEmail:' + message.user + '>. Task has been assigned to ' + response.text 
+                        convo.say(message,'Got it, <@personEmail:' + message.user + '>. Task has been assigned to ' + response.user 
                         + '. \n\nTo-Do List:\n\n' + generateTaskList(user));
                     }
                 });

@@ -4,7 +4,7 @@
   "description": "A starter kit for building a custom Cisco Spark bot with Botkit Studio",
   "main": "bot.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "node main.js"
   },
   "dependencies": {
     "body-parser": "^1.15.2",
