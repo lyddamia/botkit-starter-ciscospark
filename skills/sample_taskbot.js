@@ -65,7 +65,7 @@ module.exports = function(controller) {
                 if (err) {
                     bot.reply(message, 'I experienced an error adding your task: ' + err);
                 } else {
-                    bot.reply(message,'Got it.');
+                    bot.reply(message,'Got it.kjhkjhjkh');
                 }
 
             });
