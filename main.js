@@ -179,7 +179,7 @@ controller.hears(['assign (.*)'], 'direct_message,direct_mention', function(bot,
     bot.startConversation(message, function(err, convo) {
         convo.say('This is an example of using convo.ask with a single callback.');
 
-        convo.ask('Who do you want to assign to task ~' + assigntask + '~?', function(response, convo) {
+        convo.ask('Who do you want to assign to task ~' + assigntask + '~? Type `receipient _user_`', function(response, convo) {
             
             controller.storage.users.get(response.user, function(err, user) {
                 if (!user) {
@@ -195,8 +195,8 @@ controller.hears(['assign (.*)'], 'direct_message,direct_mention', function(bot,
                     if (err) {
                         convo.say(message, 'I experienced an error assigning task: ' + err);
                     } else {
-                        convo.say(message,'Got it, <@personEmail:' + message.user + '>. Task has been assigned to ' + response.user 
-                        + '. \n\nTo-Do List:\n\n' + generateTaskList(user));
+                        convo.say(message,'Got it, <@personEmail:' + message.user + '>. Task ~' + assigntask + 'has been assigned to ' + response.user 
+                        + '. \n\nTo-Do List:\n\n' + generateTaskList(response.user));
                     }
                 });
             });
