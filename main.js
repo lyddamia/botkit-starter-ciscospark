@@ -55,9 +55,13 @@ controller.on('user_space_join', function (bot, message) {
     bot.reply(message, 'Welcome <@personEmail:' + message.user + '>! ' + intro_msg);
 });
 
-controller.on('direct_message,direct_mention', function (bot, message) {
+controller.on('direct_mention,direct_message', function (bot, message) {
     bot.reply(message, 'Sorry, <@personEmail:' + message.user + '>. I do not understand what you said.' +
     'Say `help` to learn more about how I work.');
+});
+
+controller.hears('Good job!', function (bot, message) {
+    bot.reply(message, 'So nice of you, <@personEmail:' + message.user + '>! Thanks~  ٩(｡•́‿•̀｡)۶ 	(ง ื▿ ื)ว')
 });
 
 var intro_msg = 'I am **Teddy**, your To-Do List Assistant. Say `help` to learn more about how I work.'
@@ -65,7 +69,6 @@ var intro_msg = 'I am **Teddy**, your To-Do List Assistant. Say `help` to learn 
 var help_msg = '\n\nTo add a task, type `add _task_`. \n\n To show to-do list, type `todo`.' +
                 '\n\n To mark a task complete, type `done _number_`. \n\nDon\'t forget to mention me! Enjoy!'
               
-
 // **** GREETINGS END ****
 
 
