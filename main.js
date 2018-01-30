@@ -58,7 +58,7 @@ controller.on('user_space_join', function (bot, message) {
 controller.on('direct_message,direct_mention', function (bot, message) {
     bot.reply(message, 'Sorry, <@personEmail:' + message.user + '>. I do not understand what you said.' +
     'Say `help` to learn more about how I work.');
-}
+});
 
 var intro_msg = 'I am **Teddy**, your To-Do List Assistant. Say `help` to learn more about how I work.'
 
@@ -182,7 +182,7 @@ controller.hears(['remove (.*)'],'direct_message,direct_mention', function(bot, 
         var text = '';
 
         for (var t = 0; t < user.tasks.length; t++) {
-            text = text + '> `' +  (t + 1) + '`) ' +  user.tasks[t] + ' \n\n ';
+            text = text + '> `' +  (t + 1) + '`) ' +  user.tasks[t] + ' \r ';
         }
         return text;
     }
@@ -192,47 +192,3 @@ var empty_msg = 'Your to-do list is empty.'
 
 // **** TO DO LIST END ****
 
-// This captures and evaluates any message sent to the bot as a DM
-// or sent to the bot in the form "@bot message" and passes it to
-// Botkit Studio to evaluate for trigger words and patterns.
-// If a trigger is matched, the conversation will automatically fire!
-// You can tie into the execution of the script using the functions
-// controller.studio.before, controller.studio.after and controller.studio.validate
-// if (process.env.studio_token) {
-//     controller.on('direct_message,direct_mention', function(bot, message) {
-//         if (message.text) {
-//             controller.studio.runTrigger(bot, message.text, message.user, message.channel, message).then(function(convo) {
-//                 if (!convo) {
-//                     // no trigger was matched
-//                     // If you want your bot to respond to every message,
-//                     // define a 'fallback' script in Botkit Studio
-//                     // and uncomment the line below.
-//                     controller.studio.run(bot, 'fallback', message.user, message.channel, message);
-//                 } else {
-//                     // set variables here that are needed for EVERY script
-//                     // use controller.studio.before('script') to set variables specific to a script
-//                     convo.setVar('current_time', new Date());
-//                 }
-//             }).catch(function(err) {
-//                 if (err) {
-//                     bot.reply(message, 'I experienced an error with a request to Botkit Studio: ' + err);
-//                     debug('Botkit Studio: ', err);
-//                 }
-//             });
-//         }
-//     });
-// } else {
-//     console.log('~~~~~~~~~~');
-//     console.log('NOTE: Botkit Studio functionality has not been enabled');
-//     console.log('To enable, pass in a studio_token parameter with a token from https://studio.botkit.ai/');
-// }
-
-// function usage_tip() {
-//     console.log('~~~~~~~~~~');
-//     console.log('Botkit Studio Starter Kit');
-//     console.log('Execute your bot application like this:');
-//     console.log('access_token=<MY ACCESS TOKEN> public_address=<https://mybotapp/> node bot.js');
-//     console.log('Get Cisco Spark token here: https://developer.ciscospark.com/apps.html')
-//     console.log('Get a Botkit Studio token here: https://studio.botkit.ai/')
-//     console.log('~~~~~~~~~~');
-// }
