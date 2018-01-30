@@ -55,6 +55,11 @@ controller.on('user_space_join', function (bot, message) {
     bot.reply(message, 'Welcome <@personEmail:' + message.user + '>! ' + intro_msg);
 });
 
+controller.on('direct_message,direct_mention', function (bot, message) {
+    bot.reply(message, 'Sorry, <@personEmail:' + message.user + '>. I do not understand what you said.' +
+    'Say `help` to learn more about how I work.');
+}
+
 var intro_msg = 'I am **Teddy**, your To-Do List Assistant. Say `help` to learn more about how I work.'
 
 var help_msg = '\n\nTo add a task, type `add _task_`. \n\n To show to-do list, type `todo`.' +
@@ -171,43 +176,6 @@ controller.hears(['remove (.*)'],'direct_message,direct_mention', function(bot, 
     }
 });
 
-// assign task to different user
-controller.hears(['assign (.*)'], 'direct_message,direct_mention', function(bot, message) {
-
-    var assigntask = message.match[1];
-
-    bot.startConversation(message, function(err, convo) {
-        convo.say('This is an example of using convo.ask with a single callback.');
-
-        convo.ask('Who do you want to assign to task ~' + assigntask + '~? Type `receipient _user_`', function(response, convo) {
-            
-            controller.storage.users.get(response.user, function(err, user) {
-                if (!user) {
-                    user = {};
-                    user.id = response.user;
-                    user.tasks = [];
-                }
-    
-                user.tasks.push(assigntask);
-    
-                controller.storage.users.save(user, function(err,saved) {
-    
-                    if (err) {
-                        convo.say(message, 'I experienced an error assigning task: ' + err);
-                    } else {
-                        convo.say(message,'Got it, <@personEmail:' + message.user + '>. Task ~' + assigntask + 'has been assigned to ' + response.user 
-                        + '. \n\nTo-Do List:\n\n' + generateTaskList(response.user));
-                    }
-                });
-            });
-            //convo.say('Cool, I like ' + response.text + ' too!');
-            convo.next();
-
-        });
-    });
-
-});
-
 // to do list generator
     function generateTaskList(user) {
 
@@ -230,41 +198,41 @@ var empty_msg = 'Your to-do list is empty.'
 // If a trigger is matched, the conversation will automatically fire!
 // You can tie into the execution of the script using the functions
 // controller.studio.before, controller.studio.after and controller.studio.validate
-if (process.env.studio_token) {
-    controller.on('direct_message,direct_mention', function(bot, message) {
-        if (message.text) {
-            controller.studio.runTrigger(bot, message.text, message.user, message.channel, message).then(function(convo) {
-                if (!convo) {
-                    // no trigger was matched
-                    // If you want your bot to respond to every message,
-                    // define a 'fallback' script in Botkit Studio
-                    // and uncomment the line below.
-                    controller.studio.run(bot, 'fallback', message.user, message.channel, message);
-                } else {
-                    // set variables here that are needed for EVERY script
-                    // use controller.studio.before('script') to set variables specific to a script
-                    convo.setVar('current_time', new Date());
-                }
-            }).catch(function(err) {
-                if (err) {
-                    bot.reply(message, 'I experienced an error with a request to Botkit Studio: ' + err);
-                    debug('Botkit Studio: ', err);
-                }
-            });
-        }
-    });
-} else {
-    console.log('~~~~~~~~~~');
-    console.log('NOTE: Botkit Studio functionality has not been enabled');
-    console.log('To enable, pass in a studio_token parameter with a token from https://studio.botkit.ai/');
-}
+// if (process.env.studio_token) {
+//     controller.on('direct_message,direct_mention', function(bot, message) {
+//         if (message.text) {
+//             controller.studio.runTrigger(bot, message.text, message.user, message.channel, message).then(function(convo) {
+//                 if (!convo) {
+//                     // no trigger was matched
+//                     // If you want your bot to respond to every message,
+//                     // define a 'fallback' script in Botkit Studio
+//                     // and uncomment the line below.
+//                     controller.studio.run(bot, 'fallback', message.user, message.channel, message);
+//                 } else {
+//                     // set variables here that are needed for EVERY script
+//                     // use controller.studio.before('script') to set variables specific to a script
+//                     convo.setVar('current_time', new Date());
+//                 }
+//             }).catch(function(err) {
+//                 if (err) {
+//                     bot.reply(message, 'I experienced an error with a request to Botkit Studio: ' + err);
+//                     debug('Botkit Studio: ', err);
+//                 }
+//             });
+//         }
+//     });
+// } else {
+//     console.log('~~~~~~~~~~');
+//     console.log('NOTE: Botkit Studio functionality has not been enabled');
+//     console.log('To enable, pass in a studio_token parameter with a token from https://studio.botkit.ai/');
+// }
 
-function usage_tip() {
-    console.log('~~~~~~~~~~');
-    console.log('Botkit Studio Starter Kit');
-    console.log('Execute your bot application like this:');
-    console.log('access_token=<MY ACCESS TOKEN> public_address=<https://mybotapp/> node bot.js');
-    console.log('Get Cisco Spark token here: https://developer.ciscospark.com/apps.html')
-    console.log('Get a Botkit Studio token here: https://studio.botkit.ai/')
-    console.log('~~~~~~~~~~');
-}
+// function usage_tip() {
+//     console.log('~~~~~~~~~~');
+//     console.log('Botkit Studio Starter Kit');
+//     console.log('Execute your bot application like this:');
+//     console.log('access_token=<MY ACCESS TOKEN> public_address=<https://mybotapp/> node bot.js');
+//     console.log('Get Cisco Spark token here: https://developer.ciscospark.com/apps.html')
+//     console.log('Get a Botkit Studio token here: https://studio.botkit.ai/')
+//     console.log('~~~~~~~~~~');
+// }
