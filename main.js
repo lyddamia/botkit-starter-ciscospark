@@ -56,7 +56,7 @@ controller.on('user_space_join', function (bot, message) {
 });
 
 controller.hears(['Good job','nice','cool'], function (bot, message) {
-    bot.reply(message, 'So nice of you, <@personEmail:' + message.user + '>! Thanks~  ٩(｡•́‿•̀｡)۶')
+    bot.reply(message, 'So nice of you, <@personEmail:' + message.user + '>! Thanks~~')
 });
 
 
@@ -68,7 +68,8 @@ controller.on('direct_mention,direct_message', function (bot, message) { //fallb
 var intro_msg = 'I am **Teddy**, your To-Do List Assistant. Say `help` to learn more about how I work.'
 
 var help_msg = '\n\nTo add a task, type `add _task_`. \n\n To show to-do list, type `todo`.' +
-                '\n\n To mark a task complete, type `done _number_`. \n\nDon\'t forget to mention me! Enjoy!'
+                '\n\n To mark a task complete, type `done _number_`.' +
+                '\n\n To remove a task, type `remove _number_`. \n\n Don\'t forget to mention me! Enjoy!'
               
 // **** GREETINGS END ****
 
@@ -87,24 +88,6 @@ var help_msg = '\n\nTo add a task, type `add _task_`. \n\n To show to-do list, t
             });
         });
 
-// assign task
-    controller.hears(['assign (.*)'], 'direct_message,direct_mention', function(bot, message) {
-        
-
-        var assigntask = message.match[1];
-
-        bot.startConversation(message, function(err, convo) {
-            convo.say('This is an example of using convo.ask with a single callback.');
-
-            convo.ask('What is your favorite color?', function(response, convo) {
-
-                convo.say('Cool, I like ' + response.text + ' too!');
-                convo.next();
-
-            });
-        });
-        console.log(message)
-    });
 // add task
     controller.hears(['add (.*)'],'direct_message,direct_mention', function(bot, message) {
 
@@ -204,7 +187,7 @@ controller.hears(['remove (.*)'],'direct_message,direct_mention', function(bot, 
         var text = '';
 
         for (var t = 0; t < user.tasks.length; t++) {
-            text = text + '> `' +  (t + 1) + '`) ' +  user.tasks[t] + ' \r\n ';
+            text = text + '> `' +  (t + 1) + '`) ' +  user.tasks[t] + ' \n\n ';
         }
         return text;
     }
