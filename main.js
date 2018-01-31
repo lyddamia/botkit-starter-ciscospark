@@ -55,13 +55,14 @@ controller.on('user_space_join', function (bot, message) {
     bot.reply(message, 'Welcome <@personEmail:' + message.user + '>! ' + intro_msg);
 });
 
-controller.on('direct_mention,direct_message', function (bot, message) {
-    bot.reply(message, 'Sorry, <@personEmail:' + message.user + '>. I do not understand what you said.' +
-    'Say `help` to learn more about how I work.');
+controller.hears(['Good job','nice','cool'], function (bot, message) {
+    bot.reply(message, 'So nice of you, <@personEmail:' + message.user + '>! Thanks~  ٩(｡•́‿•̀｡)۶ 	(ง ื▿ ื)ว')
 });
 
-controller.hears('Good job!', function (bot, message) {
-    bot.reply(message, 'So nice of you, <@personEmail:' + message.user + '>! Thanks~  ٩(｡•́‿•̀｡)۶ 	(ง ื▿ ื)ว')
+
+controller.on('direct_mention,direct_message', function (bot, message) { //fallback
+    bot.reply(message, 'Sorry, <@personEmail:' + message.user + '>. I did not understand what you said. ' +
+    'Say `help` to learn more about how I work.');
 });
 
 var intro_msg = 'I am **Teddy**, your To-Do List Assistant. Say `help` to learn more about how I work.'
@@ -80,12 +81,30 @@ var help_msg = '\n\nTo add a task, type `add _task_`. \n\n To show to-do list, t
             if (!user || !user.tasks || user.tasks.length == 0) {
                 bot.reply(message, empty_msg);
                 } else {
-                bot.reply(message, 'Here is your To-Do List, <@personEmail:' + message.user + '>: \n' + generateTaskList(user) + '\n\nReply with `done _number_` to mark a task completed.');
+                bot.reply(message, 'Here is your To-Do List, <@personEmail:' + message.user + '>: \n' 
+                + generateTaskList(user) + '\n\nReply with `done _number_` to mark a task completed.');
             }
             });
         });
 
-      
+// assign task
+    controller.hears(['assign (.*)'], 'direct_message,direct_mention', function(bot, message) {
+        
+
+        var assigntask = message.match[1];
+
+        bot.startConversation(message, function(err, convo) {
+            convo.say('This is an example of using convo.ask with a single callback.');
+
+            convo.ask('What is your favorite color?', function(response, convo) {
+
+                convo.say('Cool, I like ' + response.text + ' too!');
+                convo.next();
+
+            });
+        });
+        console.log(message)
+    });
 // add task
     controller.hears(['add (.*)'],'direct_message,direct_mention', function(bot, message) {
 
@@ -185,7 +204,7 @@ controller.hears(['remove (.*)'],'direct_message,direct_mention', function(bot, 
         var text = '';
 
         for (var t = 0; t < user.tasks.length; t++) {
-            text = text + '> `' +  (t + 1) + '`) ' +  user.tasks[t] + ' \r ';
+            text = text + '> `' +  (t + 1) + '`) ' +  user.tasks[t] + ' \r\n ';
         }
         return text;
     }
