@@ -55,10 +55,9 @@ controller.on('user_space_join', function (bot, message) {
     bot.reply(message, 'Welcome <@personEmail:' + message.user + '>! ' + intro_msg);
 });
 
-controller.hears(['Good job','nice','cool'], function (bot, message) {
-    bot.reply(message, 'So nice of you, <@personEmail:' + message.user + '>! Thanks~~')
+controller.hears(['Good job','nice','cool'], 'direct_message,direct_mention', function (bot, message) {
+    bot.reply(message, 'So nice of you, <@personEmail:' + message.user + '>! Thanks~ ʕ´•ᴥ•`ʔ')
 });
-
 
 controller.on('direct_mention,direct_message', function (bot, message) { //fallback
     bot.reply(message, 'Sorry, <@personEmail:' + message.user + '>. I did not understand what you said. ' +
