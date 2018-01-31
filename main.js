@@ -44,15 +44,15 @@ require(__dirname + '/components/subscribe_events.js')(controller);
 // **** GREETINGS START *****
 
 controller.hears(['hi','hello'], 'direct_message,direct_mention', function (bot, message) {
-    bot.reply(message, 'Hi, <@personEmail:' + message.user + '>! ' + intro_msg);
+    bot.reply(message, 'Hi, <@personEmail:' + message.user + '>! ʕ´•ᴥ•`ʔ \n\n' + intro_msg);
 });
 
 controller.hears('help', 'direct_message,direct_mention', function (bot, message) {
-    bot.reply(message, 'Hi, <@personEmail:' + message.user + '>! ' + help_msg);
+    bot.reply(message, 'Hi, <@personEmail:' + message.user + '>! ʕ´•ᴥ•`ʔ \n\n' + help_msg);
 });
 
 controller.on('user_space_join', function (bot, message) {
-    bot.reply(message, 'Welcome <@personEmail:' + message.user + '>! ' + intro_msg);
+    bot.reply(message, 'Welcome <@personEmail:' + message.user + '>! ʕ´•ᴥ•`ʔ \n\n' + intro_msg);
 });
 
 controller.hears(['Good job','nice','cool'], 'direct_message,direct_mention', function (bot, message) {
@@ -60,7 +60,7 @@ controller.hears(['Good job','nice','cool'], 'direct_message,direct_mention', fu
 });
 
 controller.on('direct_mention,direct_message', function (bot, message) { //fallback
-    bot.reply(message, 'Sorry, <@personEmail:' + message.user + '>. I did not understand what you said. ' +
+    bot.reply(message, 'Sorry, <@personEmail:' + message.user + '>. ต( ິᵒ̴̶̷̤́ᆺ⃘ᵒ̴̶̷̤̀ )ິต \n\n I did not understand what you said. ' +
     'Say `help` to learn more about how I work.');
 });
 
@@ -68,7 +68,7 @@ var intro_msg = 'I am **Teddy**, your To-Do List Assistant. Say `help` to learn 
 
 var help_msg = '\n\nTo add a task, type `add _task_`. \n\n To show to-do list, type `todo`.' +
                 '\n\n To mark a task complete, type `done _number_`.' +
-                '\n\n To remove a task, type `remove _number_`. \n\n Don\'t forget to mention me! Enjoy!'
+                '\n\n To remove a task, type `remove _number_`. \n\n Don\'t forget to mention me! Enjoy! ʕ´•ᴥ•`ʔ'
               
 // **** GREETINGS END ****
 
