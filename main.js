@@ -56,7 +56,7 @@ controller.on('user_space_join', function (bot, message) {
 });
 
 controller.hears(['Good job','nice','cool'], function (bot, message) {
-    bot.reply(message, 'So nice of you, <@personEmail:' + message.user + '>! Thanks~  ٩(｡•́‿•̀｡)۶ 	(ง ื▿ ื)ว')
+    bot.reply(message, 'So nice of you, <@personEmail:' + message.user + '>! Thanks~  ٩(｡•́‿•̀｡)۶')
 });
 
 
