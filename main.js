@@ -47,6 +47,10 @@ controller.hears(['hi','hello'], 'direct_message,direct_mention', function (bot,
     bot.reply(message, 'Hi, <@personEmail:' + message.user + '>! ʕ´•ᴥ•`ʔ \n\n' + intro_msg);
 });
 
+controller.hears('point', 'direct_mention', function(bot, message) {
+    bot.reply(message, '<@personEmail:bambot@sparkbot.io|BamBot> -p <@personEmail:lmia@cisco.com|Lydda> + #my master');
+});
+
 controller.hears('help', 'direct_message,direct_mention', function (bot, message) {
     bot.reply(message, 'Hi, <@personEmail:' + message.user + '>! ʕ´•ᴥ•`ʔ \n\n' + help_msg);
 });
